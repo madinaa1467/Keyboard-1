@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="ionic-plugin-keyboard"
+    id="com.ionic.keyboard"
     version="1.0.8">
     <name>Keyboard</name>
     <description>Ionic Keyboard Plugin</description>
