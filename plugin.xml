@@ -2,8 +2,6 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.ionic.keyboard"
-    version="1.0.8">
-    id="ionic-plugin-keyboard"
     version="2.0.1">
     <name>Keyboard</name>
     <description>Ionic Keyboard Plugin</description>
