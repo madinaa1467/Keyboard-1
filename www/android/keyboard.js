@@ -1,4 +1,3 @@
-
 var argscheck = require('cordova/argscheck'),
   utils = require('cordova/utils'),
   exec = require('cordova/exec'),
@@ -38,14 +37,12 @@ channel.onCordovaReady.subscribe(function() {
   function success(msg) {
     var action = msg.charAt(0);
     if ( action === 'S' ) {
-      var heights = msg.substr(1).split(";");
-      var keyboardHeight = heights[0];
-      var statusBarHeight = heights[1];
+      var keyboardHeight = msg.substr(1);
       cordova.plugins.Keyboard.isVisible = true;
-      cordova.fireWindowEvent('native.keyboardshow', { 'keyboardHeight': + keyboardHeight, 'statusBarHeight': + statusBarHeight });
+      cordova.fireWindowEvent('native.keyboardshow', { 'keyboardHeight': + keyboardHeight });
 
       //deprecated
-      cordova.fireWindowEvent('native.showkeyboard', { 'keyboardHeight': + keyboardHeight, 'statusBarHeight': + statusBarHeight });
+      cordova.fireWindowEvent('native.showkeyboard', { 'keyboardHeight': + keyboardHeight });
     } else if ( action === 'H' ) {
       cordova.plugins.Keyboard.isVisible = false;
       cordova.fireWindowEvent('native.keyboardhide');
@@ -57,6 +54,3 @@ channel.onCordovaReady.subscribe(function() {
 });
 
 module.exports = Keyboard;
-
-
-
