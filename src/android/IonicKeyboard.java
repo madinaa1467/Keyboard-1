@@ -19,6 +19,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.Display;
 import android.graphics.Point;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
 public class IonicKeyboard extends CordovaPlugin {
 
