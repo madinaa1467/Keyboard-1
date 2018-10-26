@@ -121,13 +121,15 @@ public class IonicKeyboard extends CordovaPlugin {
 
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                DisplayMetrics metrics = new DisplayMetrics();
-                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                                int usableHeight = metrics.heightPixels;
-                                getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-                                int realHeight = metrics.heightPixels;
-                                if (realHeight > usableHeight) { StatusBarHeight = realHeight - usableHeight;}
-                                else { StatusBarHeight = 0;}
+//                                DisplayMetrics metrics = new DisplayMetrics();
+//                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                                int usableHeight = metrics.heightPixels;
+//                                getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//                                int realHeight = metrics.heightPixels;
+//                                if (realHeight > usableHeight) { StatusBarHeight = realHeight - usableHeight;}
+//                                else { StatusBarHeight = 0;}
+
+                                StatusBarHeight = 0;
                             }
 
                             int heightDiff = rootView.getRootView().getHeight() - r.bottom;
