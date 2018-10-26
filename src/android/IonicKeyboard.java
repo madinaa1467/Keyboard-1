@@ -64,7 +64,6 @@ public class IonicKeyboard extends CordovaPlugin {
 
                     //http://stackoverflow.com/a/4737265/1091751 detect if keyboard is showing
                     final View rootView = cordova.getActivity().getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
-//                    int StatusBarHeight = 0;
 ////                            Rect r = new Rect();
 ////                            //r will be populated with the coordinates of your view that area still visible.
 ////                            rootView.getWindowVisibleDisplayFrame(r);
@@ -84,8 +83,10 @@ public class IonicKeyboard extends CordovaPlugin {
 ////                                else
 ////                                    int StatusBarHeight = 0;
 ////                            }
+//
                     OnGlobalLayoutListener list = new OnGlobalLayoutListener() {
                         int previousHeightDiff = 0;
+                        int StatusBarHeight = 0;
                         @Override
                         public void onGlobalLayout() {
                             Rect r = new Rect();
@@ -95,27 +96,39 @@ public class IonicKeyboard extends CordovaPlugin {
                             PluginResult result;
 
                             // cache properties for later use
-                            int rootViewHeight = rootView.getRootView().getHeight();
-                            int resultBottom = r.bottom;
+//                            int rootViewHeight = rootView.getRootView().getHeight();
+//                            int resultBottom = r.bottom;
+//
+//                            // calculate screen height differently for android versions >= 21: Lollipop 5.x, Marshmallow 6.x
+//                            //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
+//                            int screenHeight;
+//
+//                            if (Build.VERSION.SDK_INT >= 21) {
+//                                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                                Point size = new Point();
+//                                display.getSize(size);
+//                                screenHeight = size.y;
+//                            } else {
+//                                screenHeight = rootViewHeight;
+//                            }
+//                            int heightDiff = screenHeight - resultBottom;
 
-                            // calculate screen height differently for android versions >= 21: Lollipop 5.x, Marshmallow 6.x
-                            //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
-                            int screenHeight;
 
-                            if (Build.VERSION.SDK_INT >= 21) {
-                                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                                Point size = new Point();
-                                display.getSize(size);
-                                screenHeight = size.y;
-                            } else {
-                                screenHeight = rootViewHeight;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                DisplayMetrics metrics = new DisplayMetrics();
+                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                                int usableHeight = metrics.heightPixels;
+                                getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+                                int realHeight = metrics.heightPixels;
+                                if (realHeight > usableHeight) { StatusBarHeight = realHeight - usableHeight;}
+                                else { StatusBarHeight = 0;}
                             }
 
-                            int heightDiff = screenHeight - resultBottom;
+                            int heightDiff = rootView.getRootView().getHeight() - r.bottom;
 
                             int pixelHeightDiff = (int)(heightDiff / density);
                             if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff) { // if more than 100 pixels, its probably a keyboard...
-                                String msg = "S" + Integer.toString(pixelHeightDiff);
+                                String msg = "S" + Integer.toString(pixelHeightDiff-StatusBarHeight);
                                 result = new PluginResult(PluginResult.Status.OK, msg);
                                 result.setKeepCallback(true);
                                 callbackContext.sendPluginResult(result);
