@@ -67,7 +67,6 @@ public class IonicKeyboard extends CordovaPlugin {
 
           //http://stackoverflow.com/a/4737265/1091751 detect if keyboard is showing
           rootView = cordova.getActivity().getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
-
           list = new OnGlobalLayoutListener() {
             int previousHeightDiff = 0;
             @Override
