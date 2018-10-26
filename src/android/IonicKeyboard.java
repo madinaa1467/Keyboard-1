@@ -15,6 +15,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
+// import additionally required classes for calculating screen height
+import android.view.Display;
+import android.graphics.Point;
+import android.os.Build;
 
 public class IonicKeyboard extends CordovaPlugin {
 
