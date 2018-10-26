@@ -64,6 +64,7 @@ public class IonicKeyboard extends CordovaPlugin {
                         int previousHeightDiff = 0;
                         @Override
                         public void onGlobalLayout() {
+                            int StatusBarHeight = 0;
 //                            Rect r = new Rect();
 //                            //r will be populated with the coordinates of your view that area still visible.
 //                            rootView.getWindowVisibleDisplayFrame(r);
