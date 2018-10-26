@@ -11,7 +11,6 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
@@ -92,7 +91,7 @@ public class IonicKeyboard extends CordovaPlugin {
 //
                     OnGlobalLayoutListener list = new OnGlobalLayoutListener() {
                         int previousHeightDiff = 0;
-                        int StatusBarHeight = 0;
+                        int statusBarHeight = 0;
                         @Override
                         public void onGlobalLayout() {
                             Rect r = new Rect();
@@ -120,21 +119,23 @@ public class IonicKeyboard extends CordovaPlugin {
 //                            int heightDiff = screenHeight - resultBottom;
 
 
+                            int pixelStatusBarHeight;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                                 DisplayMetrics metrics = new DisplayMetrics();
                                 cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
                                 int usableHeight = metrics.heightPixels;
                                 cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
                                 int realHeight = metrics.heightPixels;
-                                if (realHeight > usableHeight) { StatusBarHeight = realHeight - usableHeight;}
-                                else { StatusBarHeight = 0;}
+                                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;}
+                                else { statusBarHeight = 0;}
+                                pixelStatusBarHeight = (int)(statusBarHeight / density)
                             }
 
                             int heightDiff = rootView.getRootView().getHeight() - r.bottom;
 
                             int pixelHeightDiff = (int)(heightDiff / density);
                             if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff) { // if more than 100 pixels, its probably a keyboard...
-                                String msg = "S" + Integer.toString((int)(StatusBarHeight / density));
+                                String msg = "S" + Integer.toString(pixelHeightDiff - pixelStatusBarHeight);
                                 result = new PluginResult(PluginResult.Status.OK, msg);
                                 result.setKeepCallback(true);
                                 callbackContext.sendPluginResult(result);
