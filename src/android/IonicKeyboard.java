@@ -64,13 +64,26 @@ public class IonicKeyboard extends CordovaPlugin {
                         int previousHeightDiff = 0;
                         @Override
                         public void onGlobalLayout() {
-                            Rect r = new Rect();
-                            //r will be populated with the coordinates of your view that area still visible.
-                            rootView.getWindowVisibleDisplayFrame(r);
+//                            Rect r = new Rect();
+//                            //r will be populated with the coordinates of your view that area still visible.
+//                            rootView.getWindowVisibleDisplayFrame(r);
+//
+//                            Rect rectgle= new Rect();
+//                            window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
+//                            int StatusBarHeight= (int)(rectgle.top/density);
 
-                            Rect rectgle= new Rect();
-                            window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
-                            int StatusBarHeight= (int)(rectgle.top/density);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                DisplayMetrics metrics = new DisplayMetrics();
+                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                                int usableHeight = metrics.heightPixels;
+                                getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+                                int realHeight = metrics.heightPixels;
+                                if (realHeight > usableHeight)
+                                    int StatusBarHeight = realHeight - usableHeight;
+                                else
+                                    int StatusBarHeight = 0;
+                            }
+
 
                             PluginResult result;
 
