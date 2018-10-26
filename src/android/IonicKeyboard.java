@@ -128,7 +128,7 @@ public class IonicKeyboard extends CordovaPlugin {
                                 int realHeight = metrics.heightPixels;
                                 if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;}
                                 else { statusBarHeight = 0;}
-                                pixelStatusBarHeight = (int)(statusBarHeight / density)
+                                pixelStatusBarHeight = (int)(statusBarHeight / density);
                             }
 
                             int heightDiff = rootView.getRootView().getHeight() - r.bottom;
