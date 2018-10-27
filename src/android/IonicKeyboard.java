@@ -1,6 +1,7 @@
 package io.ionic.keyboard;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -13,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
 // import additionally required classes for calculating screen height
 
