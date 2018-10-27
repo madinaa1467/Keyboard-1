@@ -104,7 +104,6 @@ public class IonicKeyboard extends CordovaPlugin {
                 Point realSize = new Point();
                 Point screenSize = new Point();
                 DisplayMetrics metrics = new DisplayMetrics();
-
                 cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
                 realSize.y = metrics.heightPixels;
                 cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
@@ -114,22 +113,23 @@ public class IonicKeyboard extends CordovaPlugin {
                   if (resourceId > 0) {
                     navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
                   }
-                  if (navBarHeight != 0) {
-                    if (difference == navBarHeight) {
-                      hasNavBar = true;
-                    } else {
-                      navBarHeight = 0;
-                    }
-                  }
+                  if (navBarHeight != 0 && difference == navBarHeight)
+                    hasNavBar = true;
                 }
-                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                screenHeight = size.y;
-              } else {
-                screenHeight = rootViewHeight;
               }
-              int heightDiff = screenHeight - resultBottom;
+            }
+
+            if(hasNavBar == false) {
+              screenHeight = rootViewHeight;
+              navBarHeight = 0;
+            } else  {
+              Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+              Point size = new Point();
+              display.getSize(size);
+              screenHeight = size.y;
+            }
+
+            int heightDiff = screenHeight - resultBottom;
 
 //              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 //                DisplayMetrics metrics = new DisplayMetrics();
@@ -144,36 +144,45 @@ public class IonicKeyboard extends CordovaPlugin {
 
 //              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
 
-              int pixelHeightDiff = (int) (heightDiff / density);
+            int pixelHeightDiff = (int) (heightDiff / density);
 //                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
-              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff) { // if more than 100 pixels, its probably a keyboard...
-                String msg = "S" + Integer.toString(pixelHeightDiff - navBarHeight);
-                result = new PluginResult(PluginResult.Status.OK, msg);
-                result.setKeepCallback(true);
-                callbackContext.sendPluginResult(result);
-              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100) {
-                String msg = "H";
-                result = new PluginResult(PluginResult.Status.OK, msg);
-                result.setKeepCallback(true);
-                callbackContext.sendPluginResult(result);
-              }
-              previousHeightDiff = pixelHeightDiff;
+              if(pixelHeightDiff >100&&pixelHeightDiff !=previousHeightDiff)
+
+            { // if more than 100 pixels, its probably a keyboard...
+              String msg = "S" + Integer.toString(pixelHeightDiff - navBarHeight);
+              result = new PluginResult(PluginResult.Status.OK, msg);
+              result.setKeepCallback(true);
+              callbackContext.sendPluginResult(result);
+            } else if(pixelHeightDiff !=previousHeightDiff &&(previousHeightDiff -pixelHeightDiff)>100)
+
+            {
+              String msg = "H";
+              result = new PluginResult(PluginResult.Status.OK, msg);
+              result.setKeepCallback(true);
+              callbackContext.sendPluginResult(result);
             }
-          };
+
+            previousHeightDiff =pixelHeightDiff;
+          }
+        }
+
+        ;
 
 
-          rootView.getViewTreeObserver().addOnGlobalLayoutListener(list);
+          rootView.getViewTreeObserver().
+
+        addOnGlobalLayoutListener(list);
 
 
-          PluginResult dataResult = new PluginResult(PluginResult.Status.OK);
+        PluginResult dataResult = new PluginResult(PluginResult.Status.OK);
           dataResult.setKeepCallback(true);
           callbackContext.sendPluginResult(dataResult);
-        }
-      });
-      return true;
-    }
-    return false;  // Returning false results in a "MethodNotFound" error.
+      }
+    });
+    return true;
   }
+    return false;  // Returning false results in a "MethodNotFound" error.
+}
 
 
 }
