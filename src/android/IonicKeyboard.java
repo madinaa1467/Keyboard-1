@@ -79,9 +79,10 @@ public class IonicKeyboard extends CordovaPlugin {
 ////                                    int StatusBarHeight = 0;
 ////                            }
 //
+
+
           OnGlobalLayoutListener list = new OnGlobalLayoutListener() {
             int previousHeightDiff = 0;
-            int statusBarHeight = 0;
 
             @Override
             public void onGlobalLayout() {
@@ -89,78 +90,100 @@ public class IonicKeyboard extends CordovaPlugin {
               //r will be populated with the coordinates of your view that area still visible.
               rootView.getWindowVisibleDisplayFrame(r);
 
+              Rect rectgle = new Rect();
+              window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
+              int StatusBarHeight = (int) (rectgle.top / density);
+
               PluginResult result;
 
-              boolean hasNavBar = false;
-              int navBarHeight = 0;
-              int rootViewHeight = rootView.getRootView().getHeight();
-              int resultBottom = r.bottom;
+              //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
               int screenHeight;
 
-//              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
-              Point realSize = new Point();
-              Point screenSize = new Point();
-              DisplayMetrics metrics = new DisplayMetrics();
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-              realSize.y = metrics.heightPixels;
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
-              if (realSize.y != screenSize.y) {
-                int difference = realSize.y - screenSize.y;
-                int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-                if (resourceId > 0) {
-                  navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
-                }
-                if (navBarHeight != 0 && difference == navBarHeight)
-                  hasNavBar = true;
-              }
-//              }
-
-              if (hasNavBar == false) {
-                screenHeight = rootViewHeight;
-                navBarHeight = 0;
-              } else {
+              if (Build.VERSION.SDK_INT >= 21) {
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
+              } else {
+                screenHeight = rootView.getRootView().getHeight();
               }
 
-              int heightDiff = screenHeight - resultBottom;
-
-//              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                DisplayMetrics metrics = new DisplayMetrics();
-//                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//                int usableHeight = metrics.heightPixels;
-//                cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-//                int realHeight = metrics.heightPixels;
-//                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;} else {
-//                  statusBarHeight = 0;
-//                }
-//              }
-
-//              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
-
-              int pixelHeightDiff = (int) ((heightDiff - navBarHeight) / density);
-//                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
-              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff)
-
-              { // if more than 100 pixels, its probably a keyboard...
-                String msg = "S" + Integer.toString(pixelHeightDiff);
+              int heightDiff = screenHeight - (r.bottom - r.top);
+              int pixelHeightDiff = (int) (heightDiff / density);
+              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff) { // if more than 100 pixels, its probably a keyboard...
+                String msg = "S" + Integer.toString(pixelHeightDiff) + ";" + Integer.toString(StatusBarHeight);
                 result = new PluginResult(PluginResult.Status.OK, msg);
                 result.setKeepCallback(true);
                 callbackContext.sendPluginResult(result);
-              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100)
-
-              {
+              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100) {
                 String msg = "H";
                 result = new PluginResult(PluginResult.Status.OK, msg);
                 result.setKeepCallback(true);
                 callbackContext.sendPluginResult(result);
               }
-
               previousHeightDiff = pixelHeightDiff;
             }
           };
+
+//
+//          OnGlobalLayoutListener list = new OnGlobalLayoutListener() {
+//            int previousHeightDiff = 0;
+//            int statusBarHeight = 0;
+//
+//            @Override
+//            public void onGlobalLayout() {
+//              Rect r = new Rect();
+//              //r will be populated with the coordinates of your view that area still visible.
+//              rootView.getWindowVisibleDisplayFrame(r);
+//
+//              PluginResult result;
+//
+//              boolean hasNavBar = false;
+//              int navBarHeight = 0;
+//              int rootViewHeight = rootView.getRootView().getHeight();
+//              int resultBottom = r.bottom;
+//              int screenHeight;
+//
+////
+//
+//              int heightDiff = screenHeight - resultBottom;
+//
+////              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+////                DisplayMetrics metrics = new DisplayMetrics();
+////                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+////                int usableHeight = metrics.heightPixels;
+////                cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+////                int realHeight = metrics.heightPixels;
+////                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;} else {
+////                  statusBarHeight = 0;
+////                }
+////              }
+//
+////              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
+//
+//
+//
+//              int pixelHeightDiff = (int) (heightDiff / density);
+////                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
+//              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff)
+//
+//              { // if more than 100 pixels, its probably a keyboard...
+//                String msg = "S" + Integer.toString(pixelHeightDiff);
+//                result = new PluginResult(PluginResult.Status.OK, msg);
+//                result.setKeepCallback(true);
+//                callbackContext.sendPluginResult(result);
+//              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100)
+//
+//              {
+//                String msg = "H";
+//                result = new PluginResult(PluginResult.Status.OK, msg);
+//                result.setKeepCallback(true);
+//                callbackContext.sendPluginResult(result);
+//              }
+//
+//              previousHeightDiff = pixelHeightDiff;
+//            }
+//          };
 
 
           rootView.getViewTreeObserver().addOnGlobalLayoutListener(list);
