@@ -116,6 +116,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 if (navBarHeight != 0 && difference == navBarHeight)
                   hasNavBar = true;
               }
+
 //              }
 
 
