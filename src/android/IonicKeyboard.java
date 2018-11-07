@@ -103,9 +103,10 @@ public class IonicKeyboard extends CordovaPlugin {
               DisplayMetrics metrics = new DisplayMetrics();
               cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
               realSize.y = metrics.heightPixels;
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
-              if (realSize.y != screenSize.y) {
-                int difference = realSize.y - screenSize.y;
+//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+//              if (realSize.y != screenSize.y) {
+              if (realSize.y != cordova.getActivity().getWindowManager().getDefaultDisplay().getHeight()) {
+                int difference = realSize.y - cordova.getActivity().getWindowManager().getDefaultDisplay().getHeight();//screenSize.y;
                 int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
                 if (resourceId > 0) {
                   navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
