@@ -94,7 +94,7 @@ public class IonicKeyboard extends CordovaPlugin {
               boolean hasNavBar = false;
               int navBarHeight = 0;
               int rootViewHeight = rootView.getRootView().getHeight();
-              int resultBottom = r.bottom;
+              int resultBottom = r.bottom - r.top;
               int screenHeight;
 
 //              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
