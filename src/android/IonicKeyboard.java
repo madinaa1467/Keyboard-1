@@ -103,12 +103,12 @@ public class IonicKeyboard extends CordovaPlugin {
               DisplayMetrics metrics = new DisplayMetrics();
               cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
               realSize.y = metrics.heightPixels;
-//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
 //              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
 
 
-              if (realSize.y != rootViewHeight) {//screenSize.y
-                int difference = realSize.y - rootViewHeight;
+              if (realSize.y != screenSize.y) {//screenSize.y
+                int difference = realSize.y - screenSize.y;
                 int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
                 if (resourceId > 0) {
                   navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
@@ -120,16 +120,16 @@ public class IonicKeyboard extends CordovaPlugin {
 
 
 
-//              if (hasNavBar) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//
-//                // variant when full screen
-//              } else {
+              if (hasNavBar) {
+                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                screenHeight = size.y;
+
+                // variant when full screen
+              } else {
                 screenHeight = rootViewHeight;
-//              }
+              }
 
               int heightDiff = screenHeight - resultBottom;
 
