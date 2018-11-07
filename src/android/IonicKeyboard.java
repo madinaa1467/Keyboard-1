@@ -124,7 +124,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                if (Build.VERSION.SDK_INT >= 21) {//Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
                   navBarHeight = 0;
                 }
               }
