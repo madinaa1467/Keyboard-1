@@ -1,9 +1,10 @@
 package io.ionic.keyboard;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
@@ -11,9 +12,6 @@ import org.apache.cordova.*;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
 // import additionally required classes for calculating screen height
 
@@ -93,50 +91,73 @@ public class IonicKeyboard extends CordovaPlugin {
 
               PluginResult result;
 
-              // cache properties for later use
-//                            int rootViewHeight = rootView.getRootView().getHeight();
-//                            int resultBottom = r.bottom;
-//
-//                            // calculate screen height differently for android versions >= 21: Lollipop 5.x, Marshmallow 6.x
-//                            //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
-//                            int screenHeight;
-//
-//                            if (Build.VERSION.SDK_INT >= 21) {
-//                                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                                Point size = new Point();
-//                                display.getSize(size);
-//                                screenHeight = size.y;
-//                            } else {
-//                                screenHeight = rootViewHeight;
-//                            }
-//                            int heightDiff = screenHeight - resultBottom;
+              boolean hasNavBar = false;
+              int navBarHeight = 0;
+              int rootViewHeight = rootView.getRootView().getHeight();
+              int resultBottom = r.bottom;
+              int screenHeight;
 
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                DisplayMetrics metrics = new DisplayMetrics();
-                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                int usableHeight = metrics.heightPixels;
-                cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-                int realHeight = metrics.heightPixels;
-                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;} else {
-                  statusBarHeight = 0;
+//              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
+              Point realSize = new Point();
+              Point screenSize = new Point();
+              DisplayMetrics metrics = new DisplayMetrics();
+              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+              realSize.y = metrics.heightPixels;
+              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+              if (realSize.y != screenSize.y) {
+                int difference = realSize.y - screenSize.y;
+                int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+                if (resourceId > 0) {
+                  navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
                 }
+                if (navBarHeight != 0 && difference == navBarHeight)
+                  hasNavBar = true;
+              }
+//              }
+
+              if (hasNavBar == false) {
+                screenHeight = rootViewHeight;
+                navBarHeight = 0;
+              } else {
+                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                screenHeight = size.y;
               }
 
-              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
+              int heightDiff = screenHeight - resultBottom;
 
-              int pixelHeightDiff = (int) (heightDiff / density);
+//              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                DisplayMetrics metrics = new DisplayMetrics();
+//                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                int usableHeight = metrics.heightPixels;
+//                cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//                int realHeight = metrics.heightPixels;
+//                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;} else {
+//                  statusBarHeight = 0;
+//                }
+//              }
+
+//              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
+
+              int pixelHeightDiff = (int) ((heightDiff + navBarHeight) / density);
 //                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
-              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff) { // if more than 100 pixels, its probably a keyboard...
-                String msg = "S" + Integer.toString(pixelHeightDiff + statusBarHeight);
+              if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff)
+
+              { // if more than 100 pixels, its probably a keyboard...
+                String msg = "S" + Integer.toString(pixelHeightDiff);
                 result = new PluginResult(PluginResult.Status.OK, msg);
                 result.setKeepCallback(true);
                 callbackContext.sendPluginResult(result);
-              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100) {
+              } else if (pixelHeightDiff != previousHeightDiff && (previousHeightDiff - pixelHeightDiff) > 100)
+
+              {
                 String msg = "H";
                 result = new PluginResult(PluginResult.Status.OK, msg);
                 result.setKeepCallback(true);
                 callbackContext.sendPluginResult(result);
               }
+
               previousHeightDiff = pixelHeightDiff;
             }
           };
