@@ -101,13 +101,12 @@ public class IonicKeyboard extends CordovaPlugin {
               int screenHeight;
 
 //              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
-
-//              Point realSize = new Point();
-//              Point screenSize = new Point();
-//              DisplayMetrics metrics = new DisplayMetrics();
-//              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-//              realSize.y = metrics.heightPixels;
-//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+              Point realSize = new Point();
+              Point screenSize = new Point();
+              DisplayMetrics metrics = new DisplayMetrics();
+              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+              realSize.y = metrics.heightPixels;
+              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
 //              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
 
 
@@ -138,12 +137,12 @@ public class IonicKeyboard extends CordovaPlugin {
                 display.getSize(size);
                 screenHeight = size.y;
 
-//                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-//                if (fullScreen) {
-//                  screenHeight = rootViewHeight - navBarHeight;
-//                }
+                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                if (fullScreen) {
+                  screenHeight = rootViewHeight - navBarHeight;
+                }
               } else {
-                screenHeight = rootViewHeight - hasNavBar;
+                screenHeight = rootViewHeight;
               }
 
 //              if (Build.VERSION.SDK_INT >= 21) {
