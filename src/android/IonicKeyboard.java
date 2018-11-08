@@ -107,39 +107,48 @@ public class IonicKeyboard extends CordovaPlugin {
 //              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
 
 
-              if (realSize.y != screenSize.y) {//screenSize.y
-                int difference = realSize.y - screenSize.y;
+//              if (realSize.y != screenSize.y) {//screenSize.y
+//                int difference = realSize.y - screenSize.y;
+//                int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+//                if (resourceId > 0) {
+//                  navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
+//                }
+//                if (navBarHeight != 0 && difference == navBarHeight)
+//                  hasNavBar = true;
+//              }
+
                 int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
                 if (resourceId > 0) {
                   navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
                 }
-                if (navBarHeight != 0 && difference == navBarHeight)
+                if (navBarHeight != 0)
                   hasNavBar = true;
-              }
+
+
 
 //              }
 
 
 
-//              if (hasNavBar) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//
-//                // variant when full screen
-//              } else {
-//                screenHeight = rootViewHeight;
-//              }
-
-              if (Build.VERSION.SDK_INT >= 21) {
+              if (hasNavBar) {
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
+
+                // variant when full screen
               } else {
-                screenHeight = rootView.getRootView().getHeight();
+                screenHeight = rootViewHeight;
               }
+
+//              if (Build.VERSION.SDK_INT >= 21) {
+//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                screenHeight = size.y;
+//              } else {
+//                screenHeight = rootView.getRootView().getHeight();
+//              }
 
               int heightDiff = screenHeight - resultBottom;
 
