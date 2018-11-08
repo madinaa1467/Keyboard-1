@@ -140,7 +140,7 @@ public class IonicKeyboard extends CordovaPlugin {
 
                 boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
                 if (fullScreen) {
-                  screenHeight = rootViewHeight - navBarHeight;
+                  screenHeight = rootViewHeight;
                 }
               } else {
                 screenHeight = rootViewHeight;
