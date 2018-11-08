@@ -7,11 +7,14 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import org.apache.cordova.*;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+//import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 // import additionally required classes for calculating screen height
 
@@ -98,12 +101,13 @@ public class IonicKeyboard extends CordovaPlugin {
               int screenHeight;
 
 //              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
-              Point realSize = new Point();
-              Point screenSize = new Point();
-              DisplayMetrics metrics = new DisplayMetrics();
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-              realSize.y = metrics.heightPixels;
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+
+//              Point realSize = new Point();
+//              Point screenSize = new Point();
+//              DisplayMetrics metrics = new DisplayMetrics();
+//              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//              realSize.y = metrics.heightPixels;
+//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
 //              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
 
 
