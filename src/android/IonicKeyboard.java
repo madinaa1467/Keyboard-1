@@ -120,6 +120,8 @@ public class IonicKeyboard extends CordovaPlugin {
 //                  hasNavBar = true;
 //              }
 
+
+
               int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
               if (resourceId > 0) {
                 navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
@@ -130,19 +132,24 @@ public class IonicKeyboard extends CordovaPlugin {
 //              }
 
 
-//              if (hasNavBar) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//
-////                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-////                if (fullScreen) {
-////                  screenHeight += navBarHeight;
-////                }
-//              } else {
+              if (hasNavBar) {
+                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                screenHeight = size.y;
+
+                int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+                if (id > 0 && resources.getBoolean(id) == false) {
+                  screenHeight = rootViewHeight;
+                }
+
+//                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+//                if (fullScreen) {
+//                  screenHeight += navBarHeight;
+//                }
+              } else {
                 screenHeight = rootViewHeight;
-//              }
+              }
 
 
 //              int flg = cordova.getActivity().getWindow().getAttributes().flags;
