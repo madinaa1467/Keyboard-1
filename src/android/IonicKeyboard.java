@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.KeyCharacterMap;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
@@ -129,17 +130,32 @@ public class IonicKeyboard extends CordovaPlugin {
 
 //              }
 
-              int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== id=" + id);
-              if (id > 0 && cordova.getActivity().getResources().getBoolean(id)) {
+
+              boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+              boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+
+              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasBackKey=" + hasBackKey);
+              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasHomeKey=" + hasHomeKey);
+              if (hasBackKey && hasHomeKey) {
+                screenHeight = rootViewHeight;
+              } else {
+
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
-              } else {
-                screenHeight = rootViewHeight;
-
               }
+//              int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+//              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== id=" + id);
+//              if (id > 0 && cordova.getActivity().getResources().getBoolean(id)) {
+//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                screenHeight = size.y;
+//              } else {
+//                screenHeight = rootViewHeight;
+//
+//              }
 
 //              if (hasNavBar) {
 //                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
