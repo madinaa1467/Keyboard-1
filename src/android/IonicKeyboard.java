@@ -103,12 +103,14 @@ public class IonicKeyboard extends CordovaPlugin {
               int screenHeight;
 
 //              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
-              Point realSize = new Point();
-              Point screenSize = new Point();
-              DisplayMetrics metrics = new DisplayMetrics();
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-              realSize.y = metrics.heightPixels;
-              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+
+//              Point realSize = new Point();
+//              Point screenSize = new Point();
+//              DisplayMetrics metrics = new DisplayMetrics();
+//              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//              realSize.y = metrics.heightPixels;
+//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+
 //              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
 
 
@@ -138,7 +140,7 @@ public class IonicKeyboard extends CordovaPlugin {
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasBackKey=" + hasBackKey);
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasHomeKey=" + hasHomeKey);
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== View.SYSTEM_UI_FLAG_FULLSCREEN =" + (View.SYSTEM_UI_FLAG_LAYOUT_STABLE));
-              if (!(hasBackKey && hasHomeKey) ||
+              if (!(hasBackKey && hasHomeKey) || navBarHeight != 0){
 //                (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -150,9 +152,6 @@ public class IonicKeyboard extends CordovaPlugin {
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_IMMERSIVE) != 0 ||
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0  ||
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0//== View.SYSTEM_UI_FLAG_FULLSCREEN)
-                navBarHeight != 0
-
-                ){
 
                 screenHeight = rootViewHeight;//
               } else {
