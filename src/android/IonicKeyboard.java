@@ -139,7 +139,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 screenHeight = size.y;
 
                 int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-                if (id > 0 && cordova.getActivity().getResources().getBoolean(id) == false) {
+                if ((id > 0 && cordova.getActivity().getResources().getBoolean(id)) == false) {
                   screenHeight = rootViewHeight;
                 }
 
