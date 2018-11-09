@@ -7,7 +7,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import org.apache.cordova.*;
 import org.apache.cordova.PluginResult.Status;
@@ -121,7 +120,6 @@ public class IonicKeyboard extends CordovaPlugin {
 //              }
 
 
-
               int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
               if (resourceId > 0) {
                 navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
@@ -137,7 +135,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
-
+                System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs==================================================");
                 int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
                 if ((id > 0 && cordova.getActivity().getResources().getBoolean(id)) == false) {
                   screenHeight = rootViewHeight;
@@ -145,7 +143,7 @@ public class IonicKeyboard extends CordovaPlugin {
 
 //                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
 //                if (fullScreen) {
-//                  screenHeight += navBarHeight;
+//                  screenHeight = rootViewHeight;
 //                }
               } else {
                 screenHeight = rootViewHeight;
@@ -155,7 +153,7 @@ public class IonicKeyboard extends CordovaPlugin {
 //              int flg = cordova.getActivity().getWindow().getAttributes().flags;
 //              if ((flg & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
 //                fullScreen = true;
-//                screenHeight += navBarHeight;
+//                screenHeight = rootViewHeight;
 //              }
 
 
