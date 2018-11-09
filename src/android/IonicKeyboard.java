@@ -137,7 +137,7 @@ public class IonicKeyboard extends CordovaPlugin {
 
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasBackKey=" + hasBackKey);
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasHomeKey=" + hasHomeKey);
-              if (!(hasBackKey && hasHomeKey)) {
+              if (!(hasBackKey && hasHomeKey) && !View.SYSTEM_UI_FLAG_FULLSCREEN) {
                 screenHeight = rootViewHeight;
               } else {
 
