@@ -14,6 +14,7 @@ import org.apache.cordova.*;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
+import android.view.WindowManager;
 
 //import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
@@ -145,7 +146,9 @@ public class IonicKeyboard extends CordovaPlugin {
 //                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 //                | View.SYSTEM_UI_FLAG_FULLSCREEN
 //                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_FULLSCREEN |  View.SYSTEM_UI_FLAG_LAYOUT_STABLE) == 1) {
+//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 1)
+
+                (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN ){
                 screenHeight = rootViewHeight;//
               } else {
 
