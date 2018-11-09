@@ -123,16 +123,15 @@ public class IonicKeyboard extends CordovaPlugin {
 //              }
 
 
-//              int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-//              if (resourceId > 0 ) {
-//                navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
-//                hasNavBar = true;
-//              }
+              int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+              if (resourceId > 0 ) {
+                navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
+              }
 
 
 //              }
 
-
+              int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
               boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
               boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
 
@@ -148,10 +147,13 @@ public class IonicKeyboard extends CordovaPlugin {
 //                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 1)
 //                (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN )
-                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_IMMERSIVE) != 0 ||
-                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0  ||
-                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0)//== View.SYSTEM_UI_FLAG_FULLSCREEN)
-                {
+//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_IMMERSIVE) != 0 ||
+//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0  ||
+//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0//== View.SYSTEM_UI_FLAG_FULLSCREEN)
+                navBarHeight != 0
+
+                ){
+
                 screenHeight = rootViewHeight;//
               } else {
 
