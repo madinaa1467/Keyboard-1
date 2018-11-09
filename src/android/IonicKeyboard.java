@@ -131,25 +131,29 @@ public class IonicKeyboard extends CordovaPlugin {
 //              }
 
 
-              if (hasNavBar) {
-                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                screenHeight = size.y;
-
-//                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-//                if (fullScreen) {
-//                  screenHeight += navBarHeight;
-//                }
-
-              } else {
+//              if (hasNavBar) {
+//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                screenHeight = size.y;
+//
+////                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+////                if (fullScreen) {
+////                  screenHeight += navBarHeight;
+////                }
+//
+//              } else {
                 screenHeight = rootViewHeight;
-              }
-              int flg = cordova.getActivity().getWindow().getAttributes().flags;
-              if ((flg & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-                fullScreen = true;
-                screenHeight += navBarHeight;
-              }
+//              }
+
+
+//              int flg = cordova.getActivity().getWindow().getAttributes().flags;
+//              if ((flg & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+//                fullScreen = true;
+//                screenHeight += navBarHeight;
+//              }
+
+
 //              if (Build.VERSION.SDK_INT >= 21) {
 //                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
 //                Point size = new Point();
