@@ -129,25 +129,35 @@ public class IonicKeyboard extends CordovaPlugin {
 
 //              }
 
-
-              if (hasNavBar) {
+              int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== id=" + id);
+              if (id > 0 && cordova.getActivity().getResources().getBoolean(id)) {
+                screenHeight = rootViewHeight;
+              } else {
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 screenHeight = size.y;
-                System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs==================================================");
-                int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-                if ((id > 0 && cordova.getActivity().getResources().getBoolean(id)) == false) {
-                  screenHeight = rootViewHeight;
-                }
+              }
+
+//              if (hasNavBar) {
+//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                screenHeight = size.y;
+//
+//
+//                if ((id > 0 && cordova.getActivity().getResources().getBoolean(id)) == false) {
+//                  screenHeight = rootViewHeight;
+//                }
 
 //                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
 //                if (fullScreen) {
 //                  screenHeight = rootViewHeight;
 //                }
-              } else {
-                screenHeight = rootViewHeight;
-              }
+//              } else {
+//                screenHeight = rootViewHeight;
+//              }
 
 
 //              int flg = cordova.getActivity().getWindow().getAttributes().flags;
