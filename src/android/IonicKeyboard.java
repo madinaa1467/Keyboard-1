@@ -86,7 +86,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 Point size = new Point();
                 display.getSize(size);
 
-                int nav = (int)((rootView.getRootView().getHeight() - size.y) / density);
+                int nav = (int)((size.y - rootView.getRootView().getHeight()) / density);
 
                 String msg = "S" + Integer.toString(pixelHeightDiff) + ";" + Integer.toString(nav);
                 result = new PluginResult(PluginResult.Status.OK, msg);
