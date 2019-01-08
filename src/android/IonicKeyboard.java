@@ -87,35 +87,49 @@ public class IonicKeyboard extends CordovaPlugin {
 
             @Override
             public void onGlobalLayout() {
-              Rect r = new Rect();
-              //r will be populated with the coordinates of your view that area still visible.
-              rootView.getWindowVisibleDisplayFrame(r);
-
-              Rect rectgle= new Rect();
-              window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
-
-              PluginResult result;
-
-              //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
-              int screenHeight;
-
+//              Rect r = new Rect();
+//              //r will be populated with the coordinates of your view that area still visible.
+//              rootView.getWindowVisibleDisplayFrame(r);
+//
+//              Rect rectgle= new Rect();
+//              window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
+//
+//              PluginResult result;
+//
+//              //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
+//              int screenHeight;
+//
+//
+//              Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//              Point size = new Point();
+//              display.getSize(size);
+//
+//              if (Build.VERSION.SDK_INT >= 21) {
+//                screenHeight = size.y;
+//              } else {
+//                screenHeight = rootView.getRootView().getHeight();
+//              }
+//
+//              int heightDiff = screenHeight - (r.bottom - r.top);
+//
+//
+//
+//
+//              int pixelHeightDiff = (int) ((heightDiff) / density);// + navBarHeight
 
               Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
               Point size = new Point();
               display.getSize(size);
 
-              if (Build.VERSION.SDK_INT >= 21) {
-                screenHeight = size.y;
-              } else {
-                screenHeight = rootView.getRootView().getHeight();
-              }
 
-              int heightDiff = screenHeight - (r.bottom - r.top);
+              Rect r = new Rect();
+              //r will be populated with the coordinates of your view that area still visible.
+              rootView.getWindowVisibleDisplayFrame(r);
 
+              PluginResult result;
 
-
-
-              int pixelHeightDiff = (int) ((heightDiff) / density);// + navBarHeight
+              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
+              int pixelHeightDiff = (int)(heightDiff / density);
 //                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
               if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff)
 
