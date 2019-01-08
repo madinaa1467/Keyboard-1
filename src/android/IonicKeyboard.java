@@ -1,10 +1,8 @@
 package io.ionic.keyboard;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,7 +12,6 @@ import org.apache.cordova.*;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
-import android.view.WindowManager;
 
 //import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
@@ -126,7 +123,7 @@ public class IonicKeyboard extends CordovaPlugin {
 
 
               int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-              if (resourceId > 0 ) {
+              if (resourceId > 0) {
                 navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
               }
 
@@ -139,7 +136,9 @@ public class IonicKeyboard extends CordovaPlugin {
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasBackKey=" + hasBackKey);
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasHomeKey=" + hasHomeKey);
               System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== View.SYSTEM_UI_FLAG_FULLSCREEN =" + (View.SYSTEM_UI_FLAG_LAYOUT_STABLE));
-              if (!(hasBackKey && hasHomeKey) || navBarHeight != 0){
+//              if (!(hasBackKey && hasHomeKey) || navBarHeight != 0){
+
+
 //                (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -152,14 +151,16 @@ public class IonicKeyboard extends CordovaPlugin {
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0  ||
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0//== View.SYSTEM_UI_FLAG_FULLSCREEN)
 
-                screenHeight = rootViewHeight;//
-              } else {
+              screenHeight = rootViewHeight;//
+//              } else {
+//
+//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+//                Point size = new Point();
+//                display.getSize(size);
+//                screenHeight = size.y;
+//              }
 
-                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                screenHeight = size.y;
-              }
+
 //              int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
 //              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== id=" + id);
 //              if (id > 0 && cordova.getActivity().getResources().getBoolean(id)) {
