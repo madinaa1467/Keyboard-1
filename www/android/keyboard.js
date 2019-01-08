@@ -37,7 +37,7 @@ channel.onCordovaReady.subscribe(function() {
     var action = msg.charAt(0);
     if ( action === 'S' ) {
       var heights = msg.substr(1).split(";");
-      var keyboardHeight = heights[0].substr(1);
+      var keyboardHeight = heights[0];
       var nav = 0;
       if(heights[1] !== undefined)
         nav = heights[1];
