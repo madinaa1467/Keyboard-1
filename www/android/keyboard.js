@@ -57,11 +57,11 @@ channel.onCordovaReady.subscribe(function() {
     if ( action === 'S' ) {
       var keyboardHeight = msg.substr(1);
       cordova.plugins.Keyboard.isVisible = true;
-      cordova.fireWindowEvent('native.keyboardshow', { 'keyboardHeight': + keyboardHeight });
+      cordova.fireWindowEvent('native.keyboardshow', {'keyboardHeight': +keyboardHeight, 'nav': +nav});
 
       //deprecated
-      cordova.fireWindowEvent('native.showkeyboard', { 'keyboardHeight': + keyboardHeight });
-    } else if ( action === 'H' ) {
+      cordova.fireWindowEvent('native.showkeyboard', {'keyboardHeight': +keyboardHeight, 'nav': +nav});
+    } else if (action === 'H') {
       cordova.plugins.Keyboard.isVisible = false;
       cordova.fireWindowEvent('native.keyboardhide');
 
