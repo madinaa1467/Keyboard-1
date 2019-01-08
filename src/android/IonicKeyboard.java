@@ -10,11 +10,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
+import org.apache.cordova.*;
+import android.view.WindowManager;
 
 public class IonicKeyboard extends CordovaPlugin {
 
@@ -80,7 +86,7 @@ public class IonicKeyboard extends CordovaPlugin {
                 Point size = new Point();
                 display.getSize(size);
 
-                int nav = (int)((Math.abs(size.y - rootView.getRootView().getHeight())) / density);
+                int nav = (int)((rootView.getRootView().getHeight() - size.y) / density);
 
                 String msg = "S" + Integer.toString(pixelHeightDiff) + ";" + Integer.toString(nav);
                 result = new PluginResult(PluginResult.Status.OK, msg);
