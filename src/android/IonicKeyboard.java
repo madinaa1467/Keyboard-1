@@ -152,6 +152,14 @@ public class IonicKeyboard extends CordovaPlugin {
 //                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0//== View.SYSTEM_UI_FLAG_FULLSCREEN)
 
               screenHeight = rootViewHeight;//
+
+
+
+
+
+
+
+
 //              } else {
 //
 //                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
@@ -223,6 +231,22 @@ public class IonicKeyboard extends CordovaPlugin {
 //              }
 
 //              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
+
+
+
+              if (Build.VERSION.SDK_INT >= 21) {
+                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                screenHeight = size.y;
+              } else {
+                screenHeight = rootView.getRootView().getHeight();
+              }
+
+              int heightDiff = screenHeight - (r.bottom - r.top);
+
+
+
 
               int pixelHeightDiff = (int) ((heightDiff) / density);// + navBarHeight
 //                            int pixelStatusBarHeight = (int)(statusBarHeight / density);
