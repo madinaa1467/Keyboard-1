@@ -1,21 +1,20 @@
 package io.ionic.keyboard;
 
-import android.content.Context;
-import android.graphics.Rect;
-import android.util.DisplayMetrics;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.inputmethod.InputMethodManager;
-import org.apache.cordova.*;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.PluginResult;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-//import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
-
-// import additionally required classes for calculating screen height
+import android.content.Context;
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.inputmethod.InputMethodManager;
 
 public class IonicKeyboard extends CordovaPlugin {
 
@@ -61,67 +60,10 @@ public class IonicKeyboard extends CordovaPlugin {
 
           //http://stackoverflow.com/a/4737265/1091751 detect if keyboard is showing
           final View rootView = cordova.getActivity().getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
-////                            Rect r = new Rect();
-////                            //r will be populated with the coordinates of your view that area still visible.
-////                            rootView.getWindowVisibleDisplayFrame(r);
-////
-////                            Rect rectgle= new Rect();
-////                            window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
-////                            int StatusBarHeight= (int)(rectgle.top/density);
-//
-////                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-////                                DisplayMetrics metrics = new DisplayMetrics();
-////                                getWindowManager().getDefaultDisplay().getMetrics(metrics);
-////                                int usableHeight = metrics.heightPixels;
-////                                getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-////                                int realHeight = metrics.heightPixels;
-////                                if (realHeight > usableHeight)
-////                                    int StatusBarHeight = realHeight - usableHeight;
-////                                else
-////                                    int StatusBarHeight = 0;
-////                            }
-//
           OnGlobalLayoutListener list = new OnGlobalLayoutListener() {
             int previousHeightDiff = 0;
-            int statusBarHeight = 0;
-
             @Override
             public void onGlobalLayout() {
-//              Rect r = new Rect();
-//              //r will be populated with the coordinates of your view that area still visible.
-//              rootView.getWindowVisibleDisplayFrame(r);
-//
-//              Rect rectgle= new Rect();
-//              window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
-//
-//              PluginResult result;
-//
-//              //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
-//              int screenHeight;
-//
-//
-//              Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//              Point size = new Point();
-//              display.getSize(size);
-//
-//              if (Build.VERSION.SDK_INT >= 21) {
-//                screenHeight = size.y;
-//              } else {
-//                screenHeight = rootView.getRootView().getHeight();
-//              }
-//
-//              int heightDiff = screenHeight - (r.bottom - r.top);
-//
-//
-//
-//
-//              int pixelHeightDiff = (int) ((heightDiff) / density);// + navBarHeight
-
-              Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-              Point size = new Point();
-              display.getSize(size);
-
-
               Rect r = new Rect();
               //r will be populated with the coordinates of your view that area still visible.
               rootView.getWindowVisibleDisplayFrame(r);
@@ -134,6 +76,9 @@ public class IonicKeyboard extends CordovaPlugin {
               if (pixelHeightDiff > 100 && pixelHeightDiff != previousHeightDiff)
 
               { // if more than 100 pixels, its probably a keyboard...
+                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
 
                 int nav = (int)((Math.abs(size.y - rootView.getRootView().getHeight())) / density);
 
