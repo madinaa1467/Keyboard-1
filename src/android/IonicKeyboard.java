@@ -91,153 +91,20 @@ public class IonicKeyboard extends CordovaPlugin {
               //r will be populated with the coordinates of your view that area still visible.
               rootView.getWindowVisibleDisplayFrame(r);
 
+              Rect rectgle= new Rect();
+              window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
+
               PluginResult result;
 
-              boolean hasNavBar = false;
-              int navBarHeight = 0;
-              int rootViewHeight = rootView.getRootView().getHeight();
-              int resultBottom = r.bottom;
+              //http://stackoverflow.com/a/29257533/3642890 beware of nexus 5
               int screenHeight;
 
-//              if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {//Build.VERSION_CODES.JELLY_BEAN_MR1
 
-//              Point realSize = new Point();
-//              Point screenSize = new Point();
-//              DisplayMetrics metrics = new DisplayMetrics();
-//              cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-//              realSize.y = metrics.heightPixels;
-//              cordova.getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
-
-//              cordova.getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(screenSize);//Math.abs(screenSize.y)
-
-
-//              if (realSize.y != screenSize.y) {//screenSize.y
-//                int difference = realSize.y - screenSize.y;
-//                int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-//                if (resourceId > 0) {
-//                  navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
-//                }
-//                if (navBarHeight != 0 && difference == navBarHeight)
-//                  hasNavBar = true;
-//              }
-
-
-              int resourceId = cordova.getActivity().getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-              if (resourceId > 0) {
-                navBarHeight = cordova.getActivity().getResources().getDimensionPixelSize(resourceId);
-              }
-
-
-//              }
-
-              boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-              boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
-
-              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasBackKey=" + hasBackKey);
-              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== hasHomeKey=" + hasHomeKey);
-              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== View.SYSTEM_UI_FLAG_FULLSCREEN =" + (View.SYSTEM_UI_FLAG_LAYOUT_STABLE));
-//              if (!(hasBackKey && hasHomeKey) || navBarHeight != 0){
-
-
-//                (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 1)
-//                (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN )
-//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_IMMERSIVE) != 0 ||
-//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0  ||
-//                (cordova.getActivity().getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0//== View.SYSTEM_UI_FLAG_FULLSCREEN)
-
-              screenHeight = rootViewHeight;//
-
-
-
-
-
-
-
-
-//              } else {
-//
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//              }
-
-
-//              int id = cordova.getActivity().getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-//              System.out.println("dfkjdgfkkjdgfkdgfskjdgfs sdfdgfskjdgfs================================================== id=" + id);
-//              if (id > 0 && cordova.getActivity().getResources().getBoolean(id)) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//              } else {
-//                screenHeight = rootViewHeight;
-//
-//              }
-
-//              if (hasNavBar) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//
-//
-//                if ((id > 0 && cordova.getActivity().getResources().getBoolean(id)) == false) {
-//                  screenHeight = rootViewHeight;
-//                }
-
-//                boolean fullScreen = (cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-//                if (fullScreen) {
-//                  screenHeight = rootViewHeight;
-//                }
-//              } else {
-//                screenHeight = rootViewHeight;
-//              }
-
-
-//              int flg = cordova.getActivity().getWindow().getAttributes().flags;
-//              if ((flg & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
-//                fullScreen = true;
-//                screenHeight = rootViewHeight;
-//              }
-
-
-//              if (Build.VERSION.SDK_INT >= 21) {
-//                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                screenHeight = size.y;
-//              } else {
-//                screenHeight = rootView.getRootView().getHeight();
-//              }
-
-              int heightDiff = screenHeight - resultBottom;
-
-//              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                DisplayMetrics metrics = new DisplayMetrics();
-//                cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//                int usableHeight = metrics.heightPixels;
-//                cordova.getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-//                int realHeight = metrics.heightPixels;
-//                if (realHeight > usableHeight) { statusBarHeight = realHeight - usableHeight;} else {
-//                  statusBarHeight = 0;
-//                }
-//              }
-
-//              int heightDiff = rootView.getRootView().getHeight() - r.bottom;
-
-
+              Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+              Point size = new Point();
+              display.getSize(size);
 
               if (Build.VERSION.SDK_INT >= 21) {
-                Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
                 screenHeight = size.y;
               } else {
                 screenHeight = rootView.getRootView().getHeight();
@@ -254,11 +121,7 @@ public class IonicKeyboard extends CordovaPlugin {
 
               { // if more than 100 pixels, its probably a keyboard...
 
-                Display displayTemp = cordova.getActivity().getWindowManager().getDefaultDisplay();
-                Point sizeTemp = new Point();
-                displayTemp.getSize(sizeTemp);
-
-                int nav = (int)((Math.abs(sizeTemp.y - rootViewHeight)) / density);
+                int nav = (int)((Math.abs(size.y - rootView.getRootView().getHeight())) / density);
 
                 String msg = "S" + Integer.toString(pixelHeightDiff) + ";" + Integer.toString(nav);
                 result = new PluginResult(PluginResult.Status.OK, msg);
