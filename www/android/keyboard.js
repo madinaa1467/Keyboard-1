@@ -39,7 +39,7 @@ channel.onCordovaReady.subscribe(function() {
       var heights = msg.substr(1).split(";");
       var keyboardHeight = heights[0];
       var nav = 0;
-      if(heights[1] != undefined)
+      if(heights[1])
         nav = heights[1];
       // var keyboardHeight = msg.substr(1);
       cordova.plugins.Keyboard.isVisible = true;
